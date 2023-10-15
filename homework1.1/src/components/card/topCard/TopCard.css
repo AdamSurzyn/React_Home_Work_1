@@ -1,0 +1,8 @@
+.top {
+  grid-row-start: 1;
+  grid-row-end: 4;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  grid-template-rows: repeat(5, 1fr);
+}

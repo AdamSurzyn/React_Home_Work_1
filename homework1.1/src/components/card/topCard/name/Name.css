@@ -1,0 +1,8 @@
+.name {
+  grid-row: 1 2;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  color: white;
+}

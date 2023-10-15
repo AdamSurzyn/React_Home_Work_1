@@ -1,0 +1,19 @@
+.bot {
+  grid-row-start: 4;
+  grid-row-end: 5;
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  justify-content: center;
+  align-items: center;
+  border-top: solid;
+  border-color: black;
+}
+
+.medals-container {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(60px, 133px));
+  grid-row: 2/4;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}

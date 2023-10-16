@@ -1,8 +1,6 @@
 .name {
-  grid-row: 1 2;
-  display: grid;
-  align-items: center;
-  justify-content: center;
+  grid-row: 1 / 2;
   font-size: 32px;
   color: white;
+  text-align: center;
 }

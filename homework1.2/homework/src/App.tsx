@@ -1,45 +1,61 @@
 import React from "react";
-import logo from "./logo.svg";
+
 import "./App.css";
 import { useState } from "react";
-import Info from "./components/info/info";
-import { Z_HUFFMAN_ONLY } from "zlib";
-function App() {
-  interface Human {
-    human: {
-      sex: "man" | "woman";
-      surname: string;
-    };
-    accountBalance: number;
-  }
-  const initData: Human = {
-    human: {
-      sex: "man",
-      surname: "Detic",
-    },
-    accountBalance: 1000,
+
+interface Human {
+  human: {
+    sex: "man" | "woman";
+    surname: string;
   };
+  accountBalance: number;
+}
+const initData: Human = {
+  human: {
+    sex: "woman",
+    surname: "Detic",
+  },
+  accountBalance: 1000,
+};
 
+function App() {
   const [data, setData] = useState<Human>(initData);
+  const [sex, sexChange] = useState<string>(initData.human.sex);
+  const handleSubtractCoin = () => {
+    setData((prevValue): Human => {
+      let newData: Human = { ...prevValue };
+      newData.accountBalance = newData.accountBalance - 500;
+      return newData;
+    });
+  };
+  const handleAddCoin = () => {
+    setData((prevValue): Human => {
+      let newData: Human = { ...prevValue };
+      newData.accountBalance = newData.accountBalance + 500;
+      return newData;
+    });
+  };
+  const handleSexChange = () => {
+    sexChange((prevState): string => {
+      let newData = prevState;
+      if (newData === "man") {
+        newData = "woman";
+      } else if (newData === "woman") {
+        newData = "man";
+      }
 
-  const [sex, setSex] = useState(initData.human.sex);
-  const [surname, setSurname] = useState(initData.human.surname);
-  const [balance, setBalanmce] = useState(initData.accountBalance);
-
-  const handleDataChange = () => {
-    setData((prev): Human => {
-      return prev;
+      return newData;
     });
   };
 
   return (
     <div className="App">
-      <Info
-        sex={data.human.sex}
-        surname={data.human.surname}
-        balance={data.accountBalance}
-      ></Info>
-      <button onClick={handleDataChange}>Eyy</button>
+      <button onClick={handleSubtractCoin}>Subtract</button>
+      <button onClick={handleAddCoin}>Add</button>
+      <button onClick={handleSexChange}>Swap Sex</button>
+      <div>{sex}</div>
+      <div>{data.human.surname}</div>
+      <div>{data.accountBalance}</div>
     </div>
   );
 }

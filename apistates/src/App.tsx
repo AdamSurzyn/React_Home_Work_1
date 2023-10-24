@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 import Post from "./post/post";
 import { useEffect } from "react";
+
 type PostType = {
   userId: number | null;
   id: number | null;
@@ -20,6 +21,8 @@ const initPost = {
 function App() {
   const [post, updatePost] = useState<PostType>(initPost);
   useEffect(() => {
+    //Tutaj w cleanupie by mozna bylo ustawic cos co by porzucalo call w momencie, gdy nie jest juz potrzebny
+
     const fetchData = async () => {
       const data = await fetch("https://jsonplaceholder.typicode.com/posts/2");
       const json = await data.json();

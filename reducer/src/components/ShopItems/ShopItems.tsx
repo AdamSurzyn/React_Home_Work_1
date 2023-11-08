@@ -1,6 +1,6 @@
 import React from "react";
 
-const ShopItem = ({ name, price }: { name: string; price: number }) => {
+const ShopItem = ({ name, price }: { name: string; price: number | null }) => {
   return (
     <div className="shop-item">
       <div>Name: {name}</div>

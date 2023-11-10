@@ -1,6 +1,7 @@
 import React, { Reducer, useReducer } from "react";
 import "./App.css";
 import ShopItem from "./components/ShopItems/ShopItems";
+import { act } from "react-dom/test-utils";
 //TODO Koszyk ma miec:
 //TODO dodawanie przedmiotu
 //TODO wyrzucanie przedmiotu
@@ -31,20 +32,30 @@ function reducer(state: typeof shopItems, action: Actions) {
   switch (action.type) {
     case "add":
       cartArr = [...state];
+      let itemFound: boolean = false;
       cartArr.map((item) => {
-        if (item.name === action.payload.name && item.count !== null) {
-          return {
-            ...item,
-            count: item.count + 1,
-          };
-        } else {
-          cartArr.push(action.payload);
+        if (
+          item.name === action.payload.name &&
+          item.count !== null &&
+          item.price !== null &&
+          !itemFound
+        ) {
+          itemFound = true;
+          return [
+            ...cartArr,
+            {
+              ...item,
+              count: item.count++,
+              price: item.count * item.price,
+            },
+          ];
         }
       });
-      // cartArr.push(action.payload);
-
+      if (!itemFound) {
+        console.log("im here");
+        cartArr.push(action.payload);
+      }
       return cartArr;
-
     default:
       throw new Error();
   }

@@ -29,9 +29,9 @@ type Actions = {
 
 function reducer(state: typeof shopItems, action: Actions) {
   let cartArr: Item[];
+  cartArr = [...state];
   switch (action.type) {
     case "add":
-      cartArr = [...state];
       let itemFound: boolean = false;
       cartArr.map((item) => {
         if (
@@ -56,6 +56,17 @@ function reducer(state: typeof shopItems, action: Actions) {
         cartArr.push(action.payload);
       }
       return cartArr;
+    case "remove":
+      cartArr.map((item, index) => {
+        if (item.name === action.payload.name) {
+          cartArr.splice(index, 1);
+          return [...cartArr];
+        }
+      });
+      return [...cartArr];
+    case "removeAll":
+      cartArr = [];
+      return [...cartArr];
     default:
       throw new Error();
   }
@@ -115,6 +126,21 @@ function App() {
         {state.map((item) => {
           return (
             <div className="cart-item-container">
+              <button
+                onClick={() => {
+                  dispatch({
+                    type: ActionTypes.REMOVE,
+                    payload: {
+                      name: item.name,
+                      id: item.id,
+                      count: item.count,
+                      price: item.price,
+                    },
+                  });
+                }}
+              >
+                REMOVE
+              </button>
               <div>{item.name}</div>
               <div>{item.price}</div>
               <div>{item.count}</div>

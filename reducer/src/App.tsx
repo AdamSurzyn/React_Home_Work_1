@@ -2,12 +2,6 @@ import React, { Reducer, useReducer } from "react";
 import "./App.css";
 import ShopItem from "./components/ShopItems/ShopItems";
 import { act } from "react-dom/test-utils";
-//TODO Koszyk ma miec:
-//TODO dodawanie przedmiotu
-//TODO wyrzucanie przedmiotu
-//TODO wyrzucenie wszystkich przedmiotow
-//TODO po dodaniu jednego przedmiotu ma sie zwiekszyc ilosc tego przedmiotu w koszyku
-//TODO Wyswietl koncowa sume do zaplaty i ilosc przedmiotow w koszyku
 
 type Item = {
   name: string;
@@ -55,7 +49,9 @@ function reducer(state: typeof shopItems, action: Actions) {
         console.log("im here");
         cartArr.push(action.payload);
       }
-      return cartArr;
+      //Te wszystkie kopie cartAll sa stworzone po to, zeby sie upewnic, ze nie mutowalem state.
+      //item.count jest zwiekszany dwa razy, wiec myslalem, ze gdzies mutuje state, ale nie wiem gdzie....
+      return [...cartArr];
     case "remove":
       cartArr.map((item, index) => {
         if (item.name === action.payload.name) {
@@ -148,6 +144,21 @@ function App() {
           );
         })}
       </div>
+      <button
+        onClick={() => {
+          dispatch({
+            type: ActionTypes.REMOVEALL,
+            payload: {
+              name: "",
+              id: null,
+              count: null,
+              price: null,
+            },
+          });
+        }}
+      >
+        Remove All
+      </button>
     </div>
   );
 }

@@ -1,0 +1,13 @@
+{
+  "people": [
+    {
+      "name": "Adam Surzyn",
+      "age": 28,
+      "city": "Danzig",
+      "volountary": false,
+      "imglink": "",
+      "phonenumber": "+12312312312",
+      "id": 1
+    }
+  ]
+}

@@ -10,7 +10,7 @@ import {
   VStack,
   ChakraProvider,
 } from "@chakra-ui/react";
-import * as yup from "yup";
+import * as yup from "yup"; // importujemy bibliotekę yup
 const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]){5,}$/;
 const validationSchema = yup.object().shape({
   name: yup
@@ -24,6 +24,9 @@ const validationSchema = yup.object().shape({
   password: yup
     .string()
     .min(8, "Password must be at least 8 characters long")
+    //Probowalem uzyc tutaj library yup-password, ale webpack nie chcial wczytac modulu
+    //yup__WEBPACK_IMPORTED_MODULE_1__.string(...).min(...).minNumbers is not a function
+    //Z tego co czytalem to mozliwe, ze yup juz byl zbyt nowy dla tej biblioteki.
     .matches(/[0-9]/, "Password must contain at least one digit")
     .matches(/[a-z]/, "Password must contain at least one lower case letter")
     .matches(/[A-Z]/, "Password must contain at least one upper case letter")
